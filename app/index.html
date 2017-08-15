@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>StarWars</title>
+    <link rel="stylesheet" type="text/css" href="index.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+</head>
+
+<body ng-app="SWapp">
+    <h1> StarWars Characters </h1>
+    <div ng-controller="CharactersCtrl">
+        <div>
+            <h2>Add New Character</h2>
+            <form ng-submit="addCharacter(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)">
+                Name :
+                <input type="text" ng-model="name" placeholder="Name" /><br> Height :
+                <input type="text" ng-model="height" placeholder="Height" /><br> Mass :
+                <input type="text" ng-model="mass" placeholder="Mass" /><br> Hair Color :
+                <input type="text" ng-model="hair_color" placeholder="Hair Color" /><br> Skin Color :
+                <input type="text" ng-model="skin_color" placeholder="Skin Color" /><br> Eye Color :
+                <input type="text" ng-model="eye_color" placeholder="Eye Color" /><br> Birth Year :
+                <input type="text" ng-model="birth_year" placeholder="Birth Year" /><br> 
+                Gender : <br>
+                Male: <input type="radio" name="gender" value="male" ng-model="gender"><br> 
+                Female: <input type="radio" name="gender" value="female" ng-model="gender"><br> 
+                <input type="submit" id="submit" value="Add New Character" />
+            </form>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <th>Name </th>
+                    <th>Height</th>
+                    <th>Mass</th>
+                    <th>Hair Color</th>
+                    <th>Skin Color</th>
+                    <th>Eye Color</th>
+                    <th>Birth Year</th>
+                    <th>Gender</th>
+                    <th>Make this Character Your Favourite</th>
+                    <th>Delete The Character</th>
+                    <th>Edit The Character</th>
+                </tr>
+                <tr ng-repeat="character in characters">
+                    {{character}}
+                    <td> {{character.name }}</td>
+                    <td> {{character.height }}</td>
+                    <td> {{character.mass }}</td>
+                    <td> {{character.hair_color }}</td>
+                    <td> {{character.skin_color }}</td>
+                    <td> {{character.eye_color }}</td>
+                    <td> {{character.birth_year }}</td>
+                    <td>
+                        <span ng-show="character.is_male">Male</span>
+                        <span ng-show="!character.is_male">Female</span>
+                    </td>
+                    <td>
+                        <span ng-show="character.favorite"><img src="./images/red_heart.png" height="42" width="42" ng-click="toggleFav(character)"></span>
+                        <span ng-show="!character.favorite"><img src="./images/empty_heart.png" height="42" width="42" ng-click="toggleFav(character)"></span>
+                    </td>
+                    <td>
+                        <button class="styled-text" ng-click="deleteCharacter(character)" >Delete</button>
+                    </td>
+                    <td>
+                        <button class="styled-text" ng-click="open()" ng-show="!showModal" >Edit</button>
+                        <div modal="showModal" ng-show="showModal">
+                            <span class="modal-header">
+                                    <span class="styled-text">Name</span>:
+                            <input type="text" ng-model="character.name" placeholder="Name" class="styled-text" />
+                            <span class="styled-text">Height</span>:
+                            <input type="text" ng-model="character.height" placeholder="Height" class="styled-text" />
+                            <span class="styled-text">Mass</span>:
+                            <input type="text" ng-model="character.mass" placeholder="Mass" class="styled-text" />
+                            <span class="styled-text">Hair Color</span>:
+                            <input type="text" ng-model="character.hair_color" placeholder="Hair Color" class="styled-text" />
+                            <span class="styled-text">Eye Color</span>:
+                            <input type="text" ng-model="character.eye_color" placeholder="Eye Color" class="styled-text" />
+                            <span class="styled-text">Birth Year</span>:
+                            <input type="text" ng-model="character.birth_year" placeholder="Birth Year" class="styled-text" />
+                            </span>
+                            <span class="modal-footer">
+                                    <button class="btn btn-success" ng-click="ok(character.name, character.height, character.mass, character.hair_color, character.eye_color, character.birth_year, character.id)" class="styled-text">Okay</button>
+                                </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

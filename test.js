@@ -1,0 +1,5 @@
+const characters_json = require('./characters.json')
+console.log(characters_json.characters[0])
+console.log("==============")
+const characters = JSON.parse(characters_json)
+console.log(characters)
