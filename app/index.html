@@ -10,11 +10,11 @@
 </head>
 
 <body ng-app="SWapp">
-    <h1> StarWars Characters </h1>
+    <h1> StarWars </h1>
     <div ng-controller="CharactersCtrl">
         <div>
             <h2>Add New Character</h2>
-            <form ng-submit="addCharacter(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)">
+            <form ng-submit="addCharacter(name, height, mass, hair_color, skin_color, eye_color, birth_year, selected_gender)">
                 Name :
                 <input type="text" ng-model="name" placeholder="Name" />
                 <br> Height :
@@ -30,10 +30,7 @@
                 <br> Birth Year :
                 <input type="text" ng-model="birth_year" placeholder="Birth Year" />
                 <br> Gender :
-                <br> Male:
-                <input type="radio" name="gender" value="male" ng-model="gender">
-                <br> Female:
-                <input type="radio" name="gender" value="female" ng-model="gender">
+                <select ng-model="selected_gender" ng-options="gender for gender in genders">
                 <br>
                 <input type="submit" id="submit" value="Add New Character" />
             </form>
@@ -55,10 +52,11 @@
                 </tr>
                 <br>
                 <div>
-                    Search :
+                    <h2>Search</h2>
                     <input type="text" ng-model="search_text" placeholder="Enter Text to search" class="input-style" />
                 </div>
                 <br>
+                <h2>Characters</h2>
                 <tr ng-repeat="character in characters | filter:search_text">
                     {{character}}
                     <td> {{character.name }}</td>
@@ -95,9 +93,14 @@
                             <input type="text" ng-model="character.eye_color" placeholder="Eye Color" class="styled-text" />
                             <span class="styled-text">Birth Year</span>:
                             <input type="text" ng-model="character.birth_year" placeholder="Birth Year" class="styled-text" />
+                            <span class="styled-text">Gender</span>:
+                                <select class="form-control" ng-model="character.is_male">
+                                    <option ng-selected="character.is_male == true">Male</option>
+                                    <option ng-selected="character.is_male == false">Female</option>
+                                </select>
                             </span>
                             <span class="modal-footer">
-                                    <button class="btn btn-success" ng-click="ok(character.name, character.height, character.mass, character.hair_color, character.eye_color, character.birth_year, character.id)" class="styled-text">Okay</button>
+                                    <button class="btn btn-success" ng-click="ok(character)" class="styled-text">Okay</button>
                                 </span>
                         </div>
                     </td>

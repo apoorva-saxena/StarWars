@@ -13,6 +13,8 @@
             console.log("Error:",response)
         });
 
+        $scope.genders = ["Male", "Female"]
+
         $scope.addCharacter = function (name, height, mass, hair_color, skin_color, eye_color, birth_year, gender) {
             let is_male = false 
             if(gender === 'male') {
@@ -26,7 +28,8 @@
                 skin_color,
                 eye_color,
                 birth_year,
-                is_male
+                is_male,
+                favorite: false
             }
 
             const req = {
@@ -43,7 +46,6 @@
                 console.log(req)
 
                 $http(req).then(function successCallback(req) {
-                    console.log(req)
                     $scope.characters.unshift(req.config.data)
                 }, function errorCallback(res) {
                     console.log("Error:",res)
@@ -68,7 +70,6 @@
             }
 
             $http.put("http://localhost:8080/api/updatecharacter/"+character.id ,updated_character).then(function (res) {
-                console.log(res)
             }, function (err) {
                 console.log("Error:", err)
             })
@@ -88,7 +89,6 @@
                     }
                 })
                 .then(function(response) {
-                    console.log(response.data)
                 }, function(rejection) {
                     console.log(rejection.data);
                 });
@@ -100,20 +100,27 @@
             $scope.showModal = true;
         };
 
-        $scope.ok = function (name, height, mass, hair_color, eye_color, birth_year, id) {
-            console.log(name, height, mass, hair_color, eye_color, birth_year, id)
+        $scope.ok = function (character) {  
+            console.log("===============character")
+            console.log(character)  
+            let is_male = false
+            if(character.is_male === 'Male') {
+                is_male = true
+            }        
             const updated_character = {
-                name,
-                height,
-                mass,
-                hair_color, 
-                eye_color,
-                birth_year,
-                id
+                name: character.name,
+                height: character.height,
+                mass: character.mass,
+                hair_color: character.hair_color, 
+                eye_color: character.eye_color,
+                birth_year: character.birth_year,
+                id: character.id,
+                is_male, 
+                favorite: character.favorite
             }
 
-            $http.put("http://localhost:8080/api/updatecharacter/"+id ,updated_character).then(function (res) {
-                console.log(res)
+            $http.put("http://localhost:8080/api/updatecharacter/"+character.id ,updated_character).then(function (res) {
+                $scope.showModal = !$scope.showModal
             }, function (err) {
                 console.log("Error:", err)
             })
