@@ -16,19 +16,19 @@
             <h2>Add New Character</h2>
             <form ng-submit="addCharacter(name, height, mass, hair_color, skin_color, eye_color, birth_year, selected_gender)">
                 Name :
-                <input type="text" ng-model="name" placeholder="Name" />
+                <input type="text" ng-model="name" placeholder="eg. r2d2" />
                 <br> Height :
-                <input type="text" ng-model="height" placeholder="Height" />
+                <input type="text" ng-model="height" placeholder="eg. 190" />
                 <br> Mass :
-                <input type="text" ng-model="mass" placeholder="Mass" />
+                <input type="text" ng-model="mass" placeholder="eg. 86" />
                 <br> Hair Color :
-                <input type="text" ng-model="hair_color" placeholder="Hair Color" />
+                <input type="text" ng-model="hair_color" placeholder="eg. black" />
                 <br> Skin Color :
-                <input type="text" ng-model="skin_color" placeholder="Skin Color" />
+                <input type="text" ng-model="skin_color" placeholder="eg. black" />
                 <br> Eye Color :
-                <input type="text" ng-model="eye_color" placeholder="Eye Color" />
+                <input type="text" ng-model="eye_color" placeholder="eg. blue" />
                 <br> Birth Year :
-                <input type="text" ng-model="birth_year" placeholder="Birth Year" />
+                <input type="text" ng-model="birth_year" placeholder="eg. MKMK56" />
                 <br> Gender :
                 <select ng-model="selected_gender" ng-options="gender for gender in genders"></select>
                 <br>

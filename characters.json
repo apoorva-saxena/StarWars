@@ -1,1 +1,36 @@
-{"characters":[{"name":"r3pos","height":"789","mass":"90","hair_color":"none","eye_color":"none","birth_year":"9090MKMKLM","id":"dc41ff80-81a1-11e7-b17f-29fe13a250c0","is_male":false,"favorite":false},{"name":"Ray","height":"89","mass":"67","hair_color":"Black","eye_color":"Blue","birth_year":"89MMN","id":"84725190-81f3-11e7-b2e9-9d25fe64e217","is_male":false,"favorite":false},{"name":"pam","height":"22","mass":"22","hair_color":"b","eye_color":"j","birth_year":"2222","id":"28c174a0-81ff-11e7-8a37-457df1fff57b","is_male":true,"favorite":true}]}
+{
+    "characters": [
+    {
+        "name": "r3pos",
+        "height": "789",
+        "mass": "90",
+        "hair_color": "none",
+        "eye_color": "none",
+        "birth_year": "9090MKMKLM",
+        "id": "dc41ff80-81a1-11e7-b17f-29fe13a250c0",
+        "is_male": false,
+        "favorite": false
+    },
+    {
+        "name": "Ray",
+        "height": "89",
+        "mass": "67",
+        "hair_color": "Black",
+        "eye_color": "Blue",
+        "birth_year": "89MMN",
+        "id": "84725190-81f3-11e7-b2e9-9d25fe64e217",
+        "is_male": false,
+        "favorite": false
+    },
+    {
+        "name": "pam",
+        "height": "22",
+        "mass": "22",
+        "hair_color": "b",
+        "eye_color": "j",
+        "birth_year": "2222",
+        "id": "28c174a0-81ff-11e7-8a37-457df1fff57b",
+        "is_male": true,
+        "favorite": true
+    }]
+}

@@ -18,7 +18,7 @@ server.get('/api/characters', function(req, res) {
         if (err) {
             console.error("Error: ", err);
         }
-        res.json(characters);
+        res.send(characters);
     })
 });
 
@@ -27,31 +27,29 @@ server.post('/api/characters', function(req, res) {
 	character.save(function (err, character) {
 		if(err) {
 			console.error("Error: ", err);
+            res.sendStatus(500);
 		}
-        res.json(201, character);
+        res.send(200, character);
 	})
 })
 
-function characterExists(characters, id) {
-	return _.find(characters, { id: id });
-}
-
-server.delete('/api/deletecharacter/:id', function(req, res) {
-	Character.remove({ _id: req.body.id }, function(err, res) {
+server.delete('/api/characters/:id', function(req, res) {
+	Character.remove({ _id: req.body._id }, function(err, db_response) {
         if (err) {
             console.error("Error: ", err);
+            res.sendStatus(500);
         }
-        console.log(req.body.id + " deleted from database");
+        res.sendStatus(200);
     })
-
 })
 
-server.put('/api/updatecharacter/:id', function(req, res) {
-	Character.replaceOne({ _id: req.body.id }, req.body, function(err, doc) {
+server.put('/api/characters/:id', function(req, res) {
+	Character.replaceOne({ _id: req.body._id }, req.body, function(err, doc) {
         if (err) {
             console.error("Error: ", err);
+            res.sendStatus(500);
         }
-        console.log("Doc: ", doc);
+        res.sendStatus(200);
     })
 })
 
