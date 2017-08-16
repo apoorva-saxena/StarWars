@@ -1,61 +1,62 @@
 'use strict'
 
-const express = require('express')
-const server = express()
-const bodyParser = require('body-parser')
-const characters = require('./characters.json')
-const fs = require('fs')
-const _ = require('lodash')
-const uuidv1 = require('uuid/v1')
+const express = require('express');
+const server = express();
+const bodyParser = require('body-parser');
+const characters = require('./characters.json');
+const fs = require('fs');
+const Character = require('./models/character');
+const port =  process.env.PORT || 8080;
 
-function log(obj) {
-    console.log(require('util').inspect(obj, false, null));
-}
-
-server.use(bodyParser.urlencoded())
-server.use(bodyParser.json())
+server.use(bodyParser.urlencoded());
+server.use(bodyParser.json());
 
 server.use(express.static(__dirname + '/app'));
 
 server.get('/api/characters', function(req, res) {
-    res.json(characters)
+	Character.find(function(err, characters) {
+        if (err) {
+            console.error("Error: ", err);
+        }
+        res.json(characters);
+    })
 });
 
 server.post('/api/characters', function(req, res) {
-    async function updateCharacters() {
-    	req.body.character.id = uuidv1()
-        characters.characters.push(req.body.character)
-        await fs.writeFile('characters.json', JSON.stringify(characters))
-    }
-    updateCharacters().catch(function(err) {
-        console.log("Error:", err)
-    })
+	const character = new Character(req.body.character);
+	character.save(function (err, character) {
+		if(err) {
+			console.error("Error: ", err);
+		}
+        res.json(201, character);
+	})
 })
 
+function characterExists(characters, id) {
+	return _.find(characters, { id: id });
+}
+
 server.delete('/api/deletecharacter/:id', function(req, res) {
-	async function deleteCharacter() {
-    	_.remove(characters.characters, { name: req.body.name })
-        await fs.writeFile('characters.json', JSON.stringify(characters))
-	}
-	deleteCharacter().catch(function (err) {
-		console.log("Error: ", err)
-	})
+	Character.remove({ _id: req.body.id }, function(err, res) {
+        if (err) {
+            console.error("Error: ", err);
+        }
+        console.log(req.body.id + " deleted from database");
+    })
 
 })
 
 server.put('/api/updatecharacter/:id', function(req, res) {
-	async function updateCharacter() {
-		_.remove(characters.characters, {id : req.body.id })
-		characters.characters.push(req.body)
-		await fs.writeFile('characters.json', JSON.stringify(characters))
-	}
-	updateCharacter().catch(function (err) {
-		console.log("Error: ", err)
-	})
+	Character.replaceOne({ _id: req.body.id }, req.body, function(err, doc) {
+        if (err) {
+            console.error("Error: ", err);
+        }
+        console.log("Doc: ", doc);
+    })
 })
 
-server.listen(8080, function() {
-    console.log("Server", process.pid, 'listening on', 8080)
+server.listen(port, function() {
+    console.log("Server", process.pid, 'listening on', 8080);
 });
 
-exports = module.exports = server
+exports = module.exports = server;

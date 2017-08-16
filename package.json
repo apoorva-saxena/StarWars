@@ -18,12 +18,13 @@
   "homepage": "https://github.com/apsaxena24/StarWars#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "chai": "^4.1.1",
     "express": "^4.15.4",
     "fs": "0.0.1-security",
     "lodash": "^4.17.4",
     "mocha": "^3.5.0",
+    "mongoose": "^4.11.7",
     "protractor": "^5.1.2",
-    "request": "^2.81.0",
-    "uuid": "^3.1.0"
+    "request": "^2.81.0"
   }
 }
